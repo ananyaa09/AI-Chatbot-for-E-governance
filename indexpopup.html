@@ -1,0 +1,258 @@
+<!-- <!DOCTYPE html>
+<html>
+<head>
+    <title>Chatbot Demo</title>
+    <style>
+        /* Add some styles to the chatbot popup */
+        .chat-popup {
+            display: none;
+            position: fixed;
+            bottom: 0;
+            right: 30px;
+            border: 1px solid #ccc;
+            background-color: #f1f1f1;
+            z-index: 9999;
+            max-height: 400px;
+            overflow: auto;
+        }
+
+        .open-button {
+            background-color: #555;
+            color: white;
+            padding: 16px 20px;
+            border: none;
+            cursor: pointer;
+            opacity: 0.8;
+            position: fixed;
+            bottom: 23px;
+            right: 28px;
+            width: 280px;
+        }
+
+        .open-button:hover {
+            opacity: 1;
+        }
+
+        .form-container {
+            max-width: 300px;
+            padding: 10px;
+            background-color: white;
+        }
+
+        .form-container textarea {
+            width: 100%;
+            padding: 15px;
+            margin: 5px 0 22px 0;
+            border: none;
+            background: #f1f1f1;
+            resize: none;
+            min-height: 200px;
+        }
+
+        .form-container textarea:focus {
+            background-color: #ddd;
+            outline: none;
+        }
+
+        .form-container .btn {
+            background-color: #4CAF50;
+            color: white;
+            padding: 16px 20px;
+            border: none;
+            cursor: pointer;
+            width: 100%;
+            margin-bottom: 10px;
+            opacity: 0.8;
+        }
+
+        .form-container .cancel {
+            background-color: red;
+        }
+
+        .form-container .btn:hover, .open-button:hover {
+            opacity: 1;
+        }
+    </style>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('#chat-form').on('submit', function(e) {
+                e.preventDefault();
+                var userMessage = $('#user-message').val();
+                $.ajax({
+                    url: '/get_response',
+                    type: 'POST',
+                    data: {user_message: userMessage},
+                    success: function(response) {
+                        var answer = JSON.parse(response).response;
+                        $('#response-text').text(answer);
+                    }
+                });
+            });
+        });
+    </script>
+</head>
+<body>
+    <h2>Chatbot Demo</h2>
+    <button class="open-button" onclick="openForm()">Open Chat</button>
+
+    <div class="chat-popup" id="chatPopup">
+        <form id="chat-form" class="form-container" method="POST">
+            <h3>Chatbot</h3>
+            <label for="msg"><b>Message</b></label>
+            <textarea id="user-message" placeholder="Type your message..." name="user_message" required></textarea>
+            <p class="response-text" id="response-text"></p>
+            <button type="submit" class="btn">Send</button>
+            <button type="button" class="btn cancel" onclick="closeForm()">Close</button>
+        </form>
+    </div>
+
+    <script>
+        function openForm() {
+            document.getElementById("chatPopup").style.display = "block";
+        }
+
+        function closeForm() {
+            document.getElementById("chatPopup").style.display = "none";
+        }
+    </script>
+</body>
+</html> -->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Chatbot Demo</title>
+    <style>
+        /* Add some styles to the chatbot popup */
+        /* Add some styles to the chatbot popup */
+        .chat-popup {
+            display: none;
+            position: fixed;
+            bottom: 0;
+            right: 30px;
+            border: 1px solid #ccc;
+            background-color: #f1f1f1;
+            z-index: 9999;
+            max-height: 400px;
+            overflow: auto;
+        }
+
+        .open-button {
+            background-color: #555;
+            color: white;
+            padding: 16px 20px;
+            border: none;
+            cursor: pointer;
+            opacity: 0.8;
+            position: fixed;
+            bottom: 23px;
+            right: 28px;
+            width: 280px;
+        }
+
+        .open-button:hover {
+            opacity: 1;
+        }
+
+        .form-container {
+            max-width: 300px;
+            padding: 10px;
+            background-color: white;
+        }
+
+        .form-container textarea {
+            width: 100%;
+            padding: 15px;
+            margin: 5px 0 22px 0;
+            border: none;
+            background: #f1f1f1;
+            resize: none;
+            min-height: 200px;
+        }
+
+        .form-container textarea:focus {
+            background-color: #ddd;
+            outline: none;
+        }
+
+        .form-container .btn {
+            background-color: #4CAF50;
+            color: white;
+            padding: 16px 20px;
+            border: none;
+            cursor: pointer;
+            width: 100%;
+            margin-bottom: 10px;
+            opacity: 0.8;
+        }
+
+        .form-container .cancel {
+            background-color: red;
+        }
+
+        .form-container .btn:hover, .open-button:hover {
+            opacity: 1;
+        }
+        
+        .form-container p.response-text {
+            margin-top: 10px;
+            margin-bottom: 0;
+            font-weight: bold;
+        }
+
+        .chat-history {
+            margin-top: 10px;
+        }
+
+        .chat-history p {
+            margin-bottom: 5px;
+        }
+    </style>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('#chat-form').on('submit', function(e) {
+                e.preventDefault();
+                var userMessage = $('#user-message').val();
+                $.ajax({
+                    url: '/get_response',
+                    type: 'POST',
+                    data: {user_message: userMessage},
+                    success: function(response) {
+                        var answer = JSON.parse(response).response;
+                        $('#response-text').text(answer);
+                        $('#chat-history').append('<p><strong>You:</strong> ' + userMessage + '</p><p><strong>Chatbot:</strong> ' + answer + '</p>');
+                    }
+                });
+            });
+        });
+    </script>
+</head>
+<body>
+    <h2>Chatbot Demo</h2>
+    <button class="open-button" onclick="openForm()">Open Chat</button>
+
+    <div class="chat-popup" id="chatPopup">
+        <form id="chat-form" class="form-container" method="POST">
+            <h3>Chatbot</h3>
+            <label for="msg"><b>Message</b></label>
+            <textarea id="user-message" placeholder="Type your message..." name="user_message" required></textarea>
+            <p class="response-text" id="response-text"></p>
+            <div class="chat-history" id="chat-history"></div>
+            <button type="submit" class="btn">Send</button>
+            <button type="button" class="btn cancel" onclick="closeForm()">Close</button>
+        </form>
+    </div>
+
+    <script>
+        function openForm() {
+            document.getElementById("chatPopup").style.display = "block";
+        }
+
+        function closeForm() {
+            document.getElementById("chatPopup").style.display = "none";
+        }
+    </script>
+</body>
+</html>
